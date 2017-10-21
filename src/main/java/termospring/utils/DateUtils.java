@@ -3,29 +3,30 @@ package termospring.utils;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
 public class DateUtils {
-    private static final String DATE_TIME_PATTERN_SEC = "dd-MM-yyyy-HH-mm-ss";
+    private static final String DATE_TIME_PATTERN_SEC = "ISO_OFFSET_DATE_TIME";
 
-    public static String DateToString(LocalDateTime date) {
+    public static String DateToString(OffsetDateTime date) {
         if (date == null) {
             return "";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_SEC, Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         return date.format(formatter);
     }
 
-    public static LocalDateTime StringToDate(String string) {
+    public static OffsetDateTime StringToDate(String string) {
         if (string == null || string.isEmpty()) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_SEC, Locale.ENGLISH);
-        LocalDateTime date = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        OffsetDateTime date = null;
         try {
-            date = LocalDateTime.parse(string, formatter);
+            date = OffsetDateTime.parse(string, formatter);
         } catch (Exception e) {
             //
         }

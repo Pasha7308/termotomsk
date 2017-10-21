@@ -4,9 +4,10 @@ import termospring.utils.DateUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class JsonDateTime {
-    private LocalDateTime localDateTime = null;
+    private OffsetDateTime localDateTime = null;
 
     public String getLocalDateTime() {
         return toString();
@@ -16,19 +17,19 @@ public class JsonDateTime {
         localDateTime = DateUtils.StringToDate(string);
     }
 
-    public LocalDateTime GetLocalDateTime() {
+    public OffsetDateTime GetLocalDateTime() {
         return localDateTime;
     }
 
-    public void SetLocalDateTime(LocalDateTime localDateTimeIn) {
+    public void SetLocalDateTime(OffsetDateTime localDateTimeIn) {
         localDateTime = localDateTimeIn;
     }
 
-    public LocalDateTime GetDateTime() {
+    public OffsetDateTime GetDateTime() {
         return localDateTime;
     }
 
-    public void SetDateTime(LocalDateTime dateTime) {
+    public void SetDateTime(OffsetDateTime dateTime) {
         localDateTime = dateTime;
     }
 

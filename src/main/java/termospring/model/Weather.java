@@ -1,33 +1,37 @@
 package termospring.model;
 
 import termospring.model.type.JsonDateTime;
+import termospring.model.type.ServerType;
+
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public class Weather {
-    private JsonDateTime updated = new JsonDateTime();
-    private Integer tempTermo;
-    private Integer trmpIao;
+    private OffsetDateTime updated = OffsetDateTime.now();
+    private ServerValue serverTermo = new ServerValue(ServerType.Termo);
+    private ServerValue serverIao = new ServerValue(ServerType.Iao);
 
-    public JsonDateTime getUpdated() {
+    public OffsetDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(JsonDateTime updated) {
+    public void setUpdated(OffsetDateTime updated) {
         this.updated = updated;
+        getServerTermo().setActual(false);
+        getServerIao().setActual(false);
     }
 
-    public Integer getTempTermo() {
-        return tempTermo;
+    public ServerValue getServerTermo() {
+        return serverTermo;
     }
 
-    public void setTempTermo(Integer tempTermo) {
-        this.tempTermo = tempTermo;
+    public ServerValue getServerIao() {
+        return serverIao;
     }
 
-    public Integer getTrmpIao() {
-        return trmpIao;
-    }
-
-    public void setTrmpIao(Integer trmpIao) {
-        this.trmpIao = trmpIao;
+    public void assign(Weather weather) {
+        this.setUpdated(weather.getUpdated());
+        this.getServerTermo().assign(weather.getServerTermo());
+        this.getServerIao().assign(weather.getServerIao());
     }
 }
