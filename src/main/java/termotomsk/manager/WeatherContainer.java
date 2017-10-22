@@ -1,11 +1,9 @@
-package termospring.manager;
+package termotomsk.manager;
 
 import org.springframework.stereotype.Component;
-import termospring.model.Weather;
+import termotomsk.model.Weather;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
 import java.util.Queue;
 
 @Component

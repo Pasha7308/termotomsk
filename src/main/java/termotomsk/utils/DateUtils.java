@@ -1,12 +1,8 @@
-package termospring.utils;
+package termotomsk.utils;
 
 
-import java.text.ParseException;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
 
 public class DateUtils {
     private static final String DATE_TIME_PATTERN_SEC = "ISO_OFFSET_DATE_TIME";

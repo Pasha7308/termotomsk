@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+<cron>
+<url>/schedule</url>
+<description>Request a weather</description>
+<schedule>every 5 minutes</schedule>
+</cron>
+</cronentries>

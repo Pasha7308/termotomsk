@@ -1,11 +1,10 @@
-package termospring.model;
+package termotomsk.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import termospring.model.dto.WeatherDto;
+import termotomsk.model.dto.WeatherDto;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Queue;
 
 @Component

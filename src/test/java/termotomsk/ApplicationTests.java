@@ -1,4 +1,4 @@
-package termospring;
+package termotomsk;
 
 import org.junit.Assert;
 import org.junit.Test;

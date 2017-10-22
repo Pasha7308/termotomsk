@@ -1,7 +1,7 @@
-package termospring.model;
+package termotomsk.model;
 
 import org.springframework.stereotype.Component;
-import termospring.model.dto.ServerValueDto;
+import termotomsk.model.dto.ServerValueDto;
 
 @Component
 public class ServerValueTranslator {

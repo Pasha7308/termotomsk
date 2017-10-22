@@ -1,4 +1,4 @@
-package termospring.model.type;
+package termotomsk.model.type;
 
 public enum ServerType {
     Termo(0),

@@ -1,9 +1,7 @@
-package termospring.model.type;
+package termotomsk.model.type;
 
-import termospring.utils.DateUtils;
+import termotomsk.utils.DateUtils;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 public class JsonDateTime {

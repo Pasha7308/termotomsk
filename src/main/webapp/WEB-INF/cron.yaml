@@ -1,0 +1,4 @@
+cron:
+- description: "Request a weather"
+  url: /schedule
+  schedule: every 5 minutes

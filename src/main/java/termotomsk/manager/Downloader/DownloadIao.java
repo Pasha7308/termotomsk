@@ -1,7 +1,7 @@
-package termospring.manager.Downloader;
+package termotomsk.manager.Downloader;
 
-import termospring.model.Weather;
-import termospring.model.ServerValue;
+import termotomsk.model.Weather;
+import termotomsk.model.ServerValue;
 
 public class DownloadIao extends Download {
 

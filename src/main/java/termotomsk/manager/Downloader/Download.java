@@ -1,7 +1,7 @@
-package termospring.manager.Downloader;
+package termotomsk.manager.Downloader;
 
-import termospring.model.Weather;
-import termospring.model.ServerValue;
+import termotomsk.model.Weather;
+import termotomsk.model.ServerValue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.Random;
 
 public abstract class Download implements Runnable {
     Weather weather;

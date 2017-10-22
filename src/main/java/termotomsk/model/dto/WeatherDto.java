@@ -1,6 +1,6 @@
-package termospring.model.dto;
+package termotomsk.model.dto;
 
-import termospring.model.type.JsonDateTime;
+import termotomsk.model.type.JsonDateTime;
 
 import java.util.ArrayList;
 

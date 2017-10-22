@@ -1,9 +1,7 @@
-package termospring.model;
+package termotomsk.model;
 
-import termospring.model.type.JsonDateTime;
-import termospring.model.type.ServerType;
+import termotomsk.model.type.ServerType;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 public class ServerValue {
