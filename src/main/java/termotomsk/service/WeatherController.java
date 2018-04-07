@@ -9,6 +9,7 @@ import termotomsk.manager.WeatherContainer;
 import termotomsk.model.WeatherTranslator;
 import termotomsk.model.dto.WeatherDto;
 import termotomsk.model.type.JsonDateTime;
+import termotomsk.model.type.ServerType;
 
 @RestController
 public class WeatherController {
@@ -34,7 +35,8 @@ public class WeatherController {
         WeatherDto dto = new WeatherDto();
         if (weatherContainer.getWeather() != null) {
             dto = weatherTranslator.businessToData(weatherContainer.getWeather());
-            dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList()));
+            dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
+            dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
         }
         return dto;
     }

@@ -1,15 +1,19 @@
 package termotomsk.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import termotomsk.model.dto.WeatherDto;
+import termotomsk.model.type.ServerType;
 
 import java.util.ArrayList;
 import java.util.Queue;
 
 @Component
 public class WeatherTranslator {
-    @Autowired ServerValueTranslator serverValueTranslator;
+    private ServerValueTranslator serverValueTranslator;
+
+    public WeatherTranslator(ServerValueTranslator serverValueTranslatorIn) {
+        serverValueTranslator = serverValueTranslatorIn;
+    }
 
     public WeatherDto businessToData(Weather weather) {
         WeatherDto dto = new WeatherDto();
@@ -19,10 +23,17 @@ public class WeatherTranslator {
         return dto;
     }
 
-    public ArrayList<Integer> oldValuesToData(Queue<Weather> weatherList) {
+    public ArrayList<Integer> oldValuesToData(Queue<Weather> weatherList, ServerType serverType) {
         ArrayList<Integer> oldValues = new ArrayList<>();
         for (Weather itr : weatherList) {
-            oldValues.add(itr.getServerTermo().getTemp());
+            switch (serverType) {
+                case Termo:
+                    oldValues.add(itr.getServerTermo().getTemp());
+                    break;
+                case Iao:
+                    oldValues.add(itr.getServerIao().getTemp());
+                    break;
+            }
         }
         return oldValues;
     }
