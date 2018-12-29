@@ -14,8 +14,13 @@ import termotomsk.model.type.ServerType;
 
 @RestController
 public class WeatherController {
-    @Autowired private WeatherContainer weatherContainer;
-    @Autowired private WeatherTranslator weatherTranslator;
+    private WeatherContainer weatherContainer;
+    private WeatherTranslator weatherTranslator;
+
+    public WeatherController(WeatherContainer weatherContainer, WeatherTranslator weatherTranslator) {
+        this.weatherContainer = weatherContainer;
+        this.weatherTranslator = weatherTranslator;
+    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getString() {
@@ -23,7 +28,7 @@ public class WeatherController {
     }
 
     @RequestMapping(path = "/weather", method = RequestMethod.GET)
-    public WeatherDto greeting(
+    public WeatherDto weather(
             @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh,
             @RequestParam(value="lastUpdate", defaultValue="") JsonDateTime lastUpdate) {
         WeatherDto dto = new WeatherDto();

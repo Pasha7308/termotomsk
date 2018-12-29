@@ -14,7 +14,11 @@ import static java.time.temporal.ChronoUnit.MILLIS;
 @Component
 public class Scheduler {
     final static private int period = 1*60*1000;
-    @Autowired private WeatherContainer weatherContainer;
+    private WeatherContainer weatherContainer;
+
+    public Scheduler(WeatherContainer weatherContainer) {
+        this.weatherContainer = weatherContainer;
+    }
 
     @Scheduled(initialDelay=10*1000, fixedRate = period)
     public void reportCurrentTime() {
