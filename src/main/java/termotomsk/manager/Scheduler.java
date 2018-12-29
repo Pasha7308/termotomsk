@@ -1,6 +1,7 @@
 package termotomsk.manager;
 
-import com.google.appengine.api.ThreadManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import termotomsk.manager.Downloader.DownloadIao;
 import termotomsk.manager.Downloader.DownloadTermo;
@@ -12,20 +13,17 @@ import static java.time.temporal.ChronoUnit.MILLIS;
 
 @Component
 public class Scheduler {
-    final static private int period = 5*60*1000;
-    private WeatherContainer weatherContainer;
+    final static private int period = 1*60*1000;
+    @Autowired private WeatherContainer weatherContainer;
 
-    public Scheduler(WeatherContainer weatherContainer) {
-        this.weatherContainer = weatherContainer;
-    }
-
-    public int reportCurrentTime() {
+    @Scheduled(initialDelay=10*1000, fixedRate = period)
+    public void reportCurrentTime() {
         Weather weather = weatherContainer.getWeather();
 
         weather.setUpdated(OffsetDateTime.now());
 
-        ThreadManager.createThreadForCurrentRequest(new DownloadTermo(weather)).start();
-        ThreadManager.createThreadForCurrentRequest(new DownloadIao(weather)).start();
+        new Thread(new DownloadTermo(weather)).start();
+        new Thread(new DownloadIao(weather)).start();
         try {
             while (!weather.getServerTermo().isActual() && !weather.getServerIao().isActual() && !isTooLong(weather.getUpdated())) {
                 Thread.sleep(100);
@@ -38,13 +36,6 @@ public class Scheduler {
             weatherToSave.assign(weather);
             weatherContainer.addToQueue(weatherToSave);
         }
-        int ret = 300;
-        if (weather.getServerTermo().isActual() && weather.getServerIao().isActual()) {
-            ret = 200;
-        } else if (weather.getServerTermo().isActual() || weather.getServerIao().isActual()) {
-            ret = 201;
-        }
-        return ret;
     }
 
     private boolean isTooLong(OffsetDateTime started) {

@@ -1,5 +1,6 @@
 package termotomsk.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import termotomsk.model.dto.WeatherDto;
 import termotomsk.model.type.ServerType;
@@ -9,11 +10,7 @@ import java.util.Queue;
 
 @Component
 public class WeatherTranslator {
-    private ServerValueTranslator serverValueTranslator;
-
-    public WeatherTranslator(ServerValueTranslator serverValueTranslatorIn) {
-        serverValueTranslator = serverValueTranslatorIn;
-    }
+    @Autowired private ServerValueTranslator serverValueTranslator;
 
     public WeatherDto businessToData(Weather weather) {
         WeatherDto dto = new WeatherDto();

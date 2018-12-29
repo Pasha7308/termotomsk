@@ -1,5 +1,6 @@
 package termotomsk.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,15 +14,8 @@ import termotomsk.model.type.ServerType;
 
 @RestController
 public class WeatherController {
-    private WeatherContainer weatherContainer;
-    private WeatherTranslator weatherTranslator;
-    private Scheduler scheduler;
-
-    public WeatherController(WeatherContainer weatherContainer, WeatherTranslator weatherTranslator, Scheduler scheduler) {
-        this.weatherContainer = weatherContainer;
-        this.weatherTranslator = weatherTranslator;
-        this.scheduler = scheduler;
-    }
+    @Autowired private WeatherContainer weatherContainer;
+    @Autowired private WeatherTranslator weatherTranslator;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getString() {
@@ -39,10 +33,5 @@ public class WeatherController {
             dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
         }
         return dto;
-    }
-
-    @RequestMapping(path = "/schedule", method = RequestMethod.GET)
-    public Integer cron() {
-        return scheduler.reportCurrentTime();
     }
 }
