@@ -1,7 +1,5 @@
 package termotomsk.model;
 
-import com.sun.java.accessibility.util.Translator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import termotomsk.model.dto.WeatherDto;
 import termotomsk.model.type.ServerType;
