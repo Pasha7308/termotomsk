@@ -5,7 +5,7 @@ import termotomsk.model.ServerValue;
 
 public class DownloadTermo extends Download {
 
-    private final String tStart = "Погода в Томске</h4>                <h2>";
+    private final String tStart = "</h4>                <h2>";
     private final String tEnd = " &deg; C  <i";
 
     public DownloadTermo(Weather weatherIn) {
