@@ -5,8 +5,8 @@
 
     <groupId>com.pasha</groupId>
     <artifactId>termo-tomsk-server</artifactId>
-    <version>19.05.27.01</version>
-    <packaging>war</packaging>
+    <version>19.06.01.01</version>
+    <packaging>jar</packaging>
 
     <name>termo-tomsk-server</name>
     <description>Server for TermoTomsk</description>
