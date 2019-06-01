@@ -7,8 +7,8 @@ import java.time.OffsetDateTime;
 public class ServerValue {
     private ServerType serverType;
     private OffsetDateTime updated = OffsetDateTime.now();
-    private Integer temp;
-    private boolean actual;
+    private int temp = 0;
+    private boolean actual = false;
 
     ServerValue(ServerType serverType) {
         this.serverType = serverType;
@@ -26,11 +26,11 @@ public class ServerValue {
         this.updated = updated;
     }
 
-    Integer getTemp() {
+    int getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(int temp) {
         this.temp = temp;
     }
 

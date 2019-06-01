@@ -5,6 +5,9 @@ import termotomsk.model.ServerValue;
 
 public class DownloadTermo extends Download {
 
+    private final String tStart = "Погода в Томске</h4>                <h2>";
+    private final String tEnd = " &deg; C  <i";
+
     public DownloadTermo(Weather weatherIn) {
         super(weatherIn);
     }
@@ -12,12 +15,7 @@ public class DownloadTermo extends Download {
     @Override
     public String getUrl()
     {
-        return "http://termo.tomsk.ru/data.xml";
-    }
-
-    @Override
-    public int getBuferLen() {
-        return 1000;
+        return "http://termopogoda.ru/tomsk/";
     }
 
     @Override
@@ -32,17 +30,22 @@ public class DownloadTermo extends Download {
             String strIn)
     {
     /*
-     * 	     	<current temp="-21.0" date="28.01.2013" time="21:19" change="-"/>
+ 	    <div class="col-md-4 col-md-push-4">
+            <div class="service-block-inner blue service-block-height">
+                <h4><i class="fa fa-info-circle"></i> Погода в Томске</h4>
+                <h2>+8.5 ° C  <i class="fa fa-angle-up" title="Повышение температуры"></i></h2>
+            </div>
+        </div>
      */
         if (strIn.length() < 500) {
             return "Wrong answer";
         }
-        int start = strIn.indexOf("<current temp=\"") + "<current temp=\"".length();
-        int finish = strIn.indexOf("\" date=\"");
+        int start = strIn.indexOf(tStart);
+        int finish = strIn.indexOf(tEnd);
         if ((start == -1) || (finish == -1)) {
             return "";
         }
-        String temp = strIn.substring(start, finish);
+        String temp = strIn.substring(start + tStart.length(), finish);
         return temp;
     }
 }

@@ -30,7 +30,7 @@ public class Scheduler {
         new Thread(new DownloadIao(weather)).start();
         try {
             while (!weather.getServerTermo().isActual() && !weather.getServerIao().isActual() && !isTooLong(weather.getUpdated())) {
-                Thread.sleep(100);
+                Thread.sleep(2000);
             }
         } catch (InterruptedException e) {
             // not important

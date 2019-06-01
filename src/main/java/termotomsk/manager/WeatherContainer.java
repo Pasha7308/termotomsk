@@ -8,8 +8,16 @@ import java.util.Queue;
 
 @Component
 public class WeatherContainer {
+    private final int maxQueue = 24;
+
     private Weather weather = new Weather();
     private Queue<Weather> weatherList = new ArrayDeque<>();
+
+    public WeatherContainer() {
+        for (int i = 0; i < maxQueue; i++) {
+            addToQueue(new Weather());
+        }
+    }
 
     public Weather getWeather() {
         return weather;
@@ -21,7 +29,7 @@ public class WeatherContainer {
 
     void addToQueue(Weather weather) {
         weatherList.add(weather);
-        if (weatherList.size() > 24) {
+        if (weatherList.size() > maxQueue) {
             weatherList.poll();
         }
     }

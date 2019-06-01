@@ -5,6 +5,9 @@ import termotomsk.model.ServerValue;
 
 public class DownloadIao extends Download {
 
+    private final String tStart = "\"temp\":";
+    private final String tEnd = ",\"hum\"";
+
     public DownloadIao(Weather weatherIn) {
         super(weatherIn);
     }
@@ -13,11 +16,6 @@ public class DownloadIao extends Download {
     public String getUrl()
     {
         return "http://meteo.iao.ru/weather.php?lang=en";
-    }
-
-    @Override
-    public int getBuferLen() {
-        return 1000;
     }
 
     @Override
@@ -37,12 +35,12 @@ public class DownloadIao extends Download {
         if (!strIn.contains("datetime") || !strIn.contains("temp")) {
             return "Wrong answer";
         }
-        int start = strIn.indexOf("\"temp\":") + "\"temp\":".length();
-        int finish = strIn.indexOf(",\"hum\"");
+        int start = strIn.indexOf(tStart);
+        int finish = strIn.indexOf(tEnd);
         if ((start == -1) || (finish == -1)) {
             return "";
         }
-        String temp = strIn.substring(start, finish);
+        String temp = strIn.substring(start + tStart.length(), finish);
         return temp;
     }
 }

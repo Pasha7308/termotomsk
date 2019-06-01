@@ -3,10 +3,7 @@ package termotomsk.manager.Downloader;
 import termotomsk.model.Weather;
 import termotomsk.model.ServerValue;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.OffsetDateTime;
@@ -27,7 +24,7 @@ public abstract class Download implements Runnable {
             conn.setReadTimeout(10000); // milliseconds
             conn.setConnectTimeout(10000); // milliseconds
             InputStream is = conn.getInputStream();
-            String strIn = readIt(is, getBuferLen());
+            String strIn = readIt(is);
             strRet = processIt(strIn);
             conn.disconnect();
             if (is != null) {
@@ -37,7 +34,7 @@ public abstract class Download implements Runnable {
             strRet = "";
         }
         if (!strRet.isEmpty()) {
-            Double dRet = Double.parseDouble(strRet);
+            double dRet = Double.parseDouble(strRet);
             int iRet = (int) ((dRet * 10) + 0.5);
             getServer().setTemp(iRet);
             getServer().setUpdated(OffsetDateTime.now());
@@ -46,26 +43,23 @@ public abstract class Download implements Runnable {
     }
 
     private String readIt(
-        InputStream stream,
-        int len)
+        InputStream stream)
         throws IOException
     {
-        Reader reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[len];
-        int read = reader.read(buffer);
-        if (read > 0) {
-            return new String(buffer);
-        } else {
-            return "";
+        BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        in.close();
+        return response.toString();
     }
 
     abstract public String processIt(
         String strIn);
 
     abstract public String getUrl();
-
-    abstract public int getBuferLen();
 
     abstract public ServerValue getServer();
 }
