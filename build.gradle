@@ -3,8 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
+
 group = 'com.pasha'
-version = '19.06.01.01'
+version = '20.09.12.01'
 description = 'termo-tomsk-server'
 sourceCompatibility = '14'
 
