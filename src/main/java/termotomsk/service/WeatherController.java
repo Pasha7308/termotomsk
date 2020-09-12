@@ -1,11 +1,9 @@
 package termotomsk.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import termotomsk.manager.Scheduler;
 import termotomsk.manager.WeatherContainer;
 import termotomsk.model.WeatherTranslator;
 import termotomsk.model.dto.WeatherDto;
@@ -14,8 +12,8 @@ import termotomsk.model.type.ServerType;
 
 @RestController
 public class WeatherController {
-    private WeatherContainer weatherContainer;
-    private WeatherTranslator weatherTranslator;
+    private final WeatherContainer weatherContainer;
+    private final WeatherTranslator weatherTranslator;
 
     public WeatherController(WeatherContainer weatherContainer, WeatherTranslator weatherTranslator) {
         this.weatherContainer = weatherContainer;
