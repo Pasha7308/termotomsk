@@ -10,8 +10,8 @@ import java.util.Queue;
 public class WeatherContainer {
     private final int maxQueue = 24;
 
-    private Weather weather = new Weather();
-    private Queue<Weather> weatherList = new ArrayDeque<>();
+    private final Weather weather = new Weather();
+    private final Queue<Weather> weatherList = new ArrayDeque<>();
 
     public WeatherContainer() {
         for (int i = 0; i < maxQueue; i++) {
@@ -23,8 +23,8 @@ public class WeatherContainer {
         return weather;
     }
 
-    void setWeather(Weather weather) {
-        this.weather = weather;
+    public Queue<Weather> getWeatherList() {
+        return weatherList;
     }
 
     void addToQueue(Weather weather) {
@@ -32,9 +32,5 @@ public class WeatherContainer {
         if (weatherList.size() > maxQueue) {
             weatherList.poll();
         }
-    }
-
-    public Queue<Weather> getWeatherList() {
-        return weatherList;
     }
 }

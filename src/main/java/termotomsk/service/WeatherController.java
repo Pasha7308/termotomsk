@@ -1,5 +1,6 @@
 package termotomsk.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,14 +12,10 @@ import termotomsk.model.type.JsonDateTime;
 import termotomsk.model.type.ServerType;
 
 @RestController
+@RequiredArgsConstructor
 public class WeatherController {
     private final WeatherContainer weatherContainer;
     private final WeatherTranslator weatherTranslator;
-
-    public WeatherController(WeatherContainer weatherContainer, WeatherTranslator weatherTranslator) {
-        this.weatherContainer = weatherContainer;
-        this.weatherTranslator = weatherTranslator;
-    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getString() {
@@ -29,12 +26,12 @@ public class WeatherController {
     public WeatherDto weather(
             @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh,
             @RequestParam(value="lastUpdate", defaultValue="") JsonDateTime lastUpdate) {
-        WeatherDto dto = new WeatherDto();
-        if (weatherContainer.getWeather() != null) {
-            dto = weatherTranslator.businessToData(weatherContainer.getWeather());
-            dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
-            dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
+        if (weatherContainer.getWeather() == null) {
+            return new WeatherDto();
         }
+        var dto = weatherTranslator.businessToData(weatherContainer.getWeather());
+        dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
+        dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
         return dto;
     }
 }

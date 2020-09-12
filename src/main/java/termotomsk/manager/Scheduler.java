@@ -1,6 +1,6 @@
 package termotomsk.manager;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import termotomsk.manager.Downloader.DownloadIao;
@@ -12,17 +12,15 @@ import java.time.OffsetDateTime;
 import static java.time.temporal.ChronoUnit.MILLIS;
 
 @Component
+@RequiredArgsConstructor
 public class Scheduler {
-    final static private int period = 1*60*1000;
-    private WeatherContainer weatherContainer;
+    final static private int period = 60 * 1000;
+    private final WeatherContainer weatherContainer;
 
-    public Scheduler(WeatherContainer weatherContainer) {
-        this.weatherContainer = weatherContainer;
-    }
-
-    @Scheduled(initialDelay=10*1000, fixedRate = period)
+    @SuppressWarnings("BusyWait")
+    @Scheduled(initialDelay = 10 * 1000, fixedRate = period)
     public void reportCurrentTime() {
-        Weather weather = weatherContainer.getWeather();
+        var weather = weatherContainer.getWeather();
 
         weather.setUpdated(OffsetDateTime.now());
 
