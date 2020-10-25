@@ -1,33 +1,12 @@
 package termotomsk.model.dto;
 
-import termotomsk.model.type.ServerType;
+import lombok.Getter;
+import lombok.Setter;
+import termotomsk.model.ServerType;
 
+@Getter @Setter
 public class ServerValueDto {
     private ServerType serverType;
-    private boolean isActual;
+    private boolean actual;
     private Integer temp;
-
-    public ServerType getServerType() {
-        return serverType;
-    }
-
-    public void setServerType(ServerType serverType) {
-        this.serverType = serverType;
-    }
-
-    public boolean isActual() {
-        return isActual;
-    }
-
-    public void setActual(boolean actual) {
-        isActual = actual;
-    }
-
-    public Integer getTemp() {
-        return temp;
-    }
-
-    public void setTemp(Integer temp) {
-        this.temp = temp;
-    }
 }

@@ -1,9 +1,12 @@
-package termotomsk.manager.Downloader;
+package termotomsk.manager.downloader;
 
-import termotomsk.model.Weather;
 import termotomsk.model.ServerValue;
+import termotomsk.model.Weather;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.OffsetDateTime;

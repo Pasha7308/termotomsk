@@ -1,30 +1,19 @@
 package termotomsk.model;
 
-import termotomsk.model.type.ServerType;
+import lombok.Getter;
 
 import java.time.OffsetDateTime;
 
+@Getter
 public class Weather {
     private OffsetDateTime updated = OffsetDateTime.now();
-    private ServerValue serverTermo = new ServerValue(ServerType.Termo);
-    private ServerValue serverIao = new ServerValue(ServerType.Iao);
-
-    public OffsetDateTime getUpdated() {
-        return updated;
-    }
+    private final ServerValue serverTermo = ServerValue.builder().serverType(ServerType.Termo).build();
+    private final ServerValue serverIao = ServerValue.builder().serverType(ServerType.Iao).build();
 
     public void setUpdated(OffsetDateTime updated) {
         this.updated = updated;
         getServerTermo().setActual(false);
         getServerIao().setActual(false);
-    }
-
-    public ServerValue getServerTermo() {
-        return serverTermo;
-    }
-
-    public ServerValue getServerIao() {
-        return serverIao;
     }
 
     public void assign(Weather weather) {

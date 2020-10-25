@@ -1,5 +1,6 @@
 package termotomsk.manager;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import termotomsk.model.Weather;
 
@@ -7,6 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 @Component
+@Getter
 public class WeatherContainer {
     private final int maxQueue = 24;
 
@@ -17,14 +19,6 @@ public class WeatherContainer {
         for (int i = 0; i < maxQueue; i++) {
             addToQueue(new Weather());
         }
-    }
-
-    public Weather getWeather() {
-        return weather;
-    }
-
-    public Queue<Weather> getWeatherList() {
-        return weatherList;
     }
 
     void addToQueue(Weather weather) {

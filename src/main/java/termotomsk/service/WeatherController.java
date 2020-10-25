@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import termotomsk.manager.WeatherContainer;
+import termotomsk.model.ServerType;
 import termotomsk.model.WeatherTranslator;
 import termotomsk.model.dto.WeatherDto;
-import termotomsk.model.type.JsonDateTime;
-import termotomsk.model.type.ServerType;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,8 +23,7 @@ public class WeatherController {
 
     @RequestMapping(path = "/weather", method = RequestMethod.GET)
     public WeatherDto weather(
-            @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh,
-            @RequestParam(value="lastUpdate", defaultValue="") JsonDateTime lastUpdate) {
+            @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh) {
         if (weatherContainer.getWeather() == null) {
             return new WeatherDto();
         }

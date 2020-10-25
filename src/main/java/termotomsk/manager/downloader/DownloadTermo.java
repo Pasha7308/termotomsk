@@ -1,7 +1,7 @@
-package termotomsk.manager.Downloader;
+package termotomsk.manager.downloader;
 
-import termotomsk.model.Weather;
 import termotomsk.model.ServerValue;
+import termotomsk.model.Weather;
 
 public class DownloadTermo extends Download {
 

@@ -1,23 +1,21 @@
 package termotomsk.model;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import termotomsk.manager.translator.ServerValueTranslator;
 import termotomsk.model.dto.WeatherDto;
-import termotomsk.model.type.ServerType;
 
 import java.util.ArrayList;
 import java.util.Queue;
 
 @Component
+@RequiredArgsConstructor
 public class WeatherTranslator {
-    private ServerValueTranslator serverValueTranslator;
-
-    public WeatherTranslator(ServerValueTranslator serverValueTranslator) {
-        this.serverValueTranslator = serverValueTranslator;
-    }
+    private final ServerValueTranslator serverValueTranslator;
 
     public WeatherDto businessToData(Weather weather) {
         WeatherDto dto = new WeatherDto();
-        dto.getUpdated().SetDateTime(weather.getUpdated());
+        dto.getUpdated().setLocalDateTime(weather.getUpdated());
         dto.setServerTermo(serverValueTranslator.businessToData(weather.getServerTermo()));
         dto.setServerIao(serverValueTranslator.businessToData(weather.getServerIao()));
         return dto;
@@ -27,12 +25,8 @@ public class WeatherTranslator {
         ArrayList<Integer> oldValues = new ArrayList<>();
         for (Weather itr : weatherList) {
             switch (serverType) {
-                case Termo:
-                    oldValues.add(itr.getServerTermo().getTemp());
-                    break;
-                case Iao:
-                    oldValues.add(itr.getServerIao().getTemp());
-                    break;
+                case Termo -> oldValues.add(itr.getServerTermo().getTemp());
+                case Iao -> oldValues.add(itr.getServerIao().getTemp());
             }
         }
         return oldValues;

@@ -3,8 +3,8 @@ package termotomsk.manager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import termotomsk.manager.Downloader.DownloadIao;
-import termotomsk.manager.Downloader.DownloadTermo;
+import termotomsk.manager.downloader.DownloadIao;
+import termotomsk.manager.downloader.DownloadTermo;
 import termotomsk.model.Weather;
 
 import java.time.OffsetDateTime;
