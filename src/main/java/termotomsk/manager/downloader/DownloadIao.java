@@ -15,7 +15,7 @@ public class DownloadIao extends Download {
     @Override
     public String getUrl()
     {
-        return "http://meteo.iao.ru/weather.php?lang=en";
+        return "https://meteo.iao.ru/weather.php?lang=en";
     }
 
     @Override
