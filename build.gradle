@@ -22,5 +22,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     implementation 'org.jetbrains:annotations:24.0.1'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.2'
-//    implementation 'net.sourceforge.tess4j:tess4j:5.7.0'
+    implementation 'net.sourceforge.tess4j:tess4j:5.7.0'
 }
