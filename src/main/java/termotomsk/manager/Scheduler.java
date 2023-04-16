@@ -3,7 +3,6 @@ package termotomsk.manager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import termotomsk.manager.downloader.DownloadIao;
 import termotomsk.manager.downloader.DownloadTermo;
 import termotomsk.model.Weather;
 
@@ -25,15 +24,14 @@ public class Scheduler {
         weather.setUpdated(OffsetDateTime.now());
 
         new Thread(new DownloadTermo(weather)).start();
-        new Thread(new DownloadIao(weather)).start();
         try {
-            while (!weather.getServerTermo().isActual() && !weather.getServerIao().isActual() && !isTooLong(weather.getUpdated())) {
-                Thread.sleep(2000);
+            while (!weather.getServerTermo().isActual() && !isTooLong(weather.getUpdated())) {
+                Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
             // not important
         }
-        if (weather.getServerTermo().isActual() || weather.getServerIao().isActual()) {
+        if (weather.getServerTermo().isActual()) {
             Weather weatherToSave = new Weather();
             weatherToSave.assign(weather);
             weatherContainer.addToQueue(weatherToSave);

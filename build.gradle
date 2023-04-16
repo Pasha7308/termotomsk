@@ -1,20 +1,25 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.7.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version '2.6.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'com.pasha'
-version = '21.12.04.01'
+version = '22.04.30.01'
 description = 'termo-tomsk-server'
 sourceCompatibility = '14'
+wrapper {
+    gradleVersion = gradleWrapperVersion
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.5'
     compileOnly "org.projectlombok:lombok:1.18.18"
     annotationProcessor 'org.projectlombok:lombok:1.18.18'
+    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.1'
 }
