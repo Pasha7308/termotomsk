@@ -1,7 +1,6 @@
 package termotomsk.service;
 
 import lombok.RequiredArgsConstructor;
-import net.sourceforge.tess4j.TesseractException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +10,9 @@ import termotomsk.manager.downloader.DownloadIaoImage;
 import termotomsk.model.ServerType;
 import termotomsk.model.WeatherTranslator;
 import termotomsk.model.dto.WeatherDto;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,10 +40,6 @@ public class WeatherController {
 
     @RequestMapping(path = "/iao", method = RequestMethod.GET)
     public String iao() {
-        try {
-            return downloadIaoImage.getIao();
-        } catch (TesseractException ignore) {
-        }
-        return "";
+        return Optional.ofNullable(downloadIaoImage.getIao()).map(Objects::toString).orElse("null");
     }
 }
