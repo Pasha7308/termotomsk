@@ -1,12 +1,12 @@
 package termotomsk.manager.ocr;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 
-@Controller
+@Service
 public class Recogniser {
     public Double recognize(Image image) {
-        return 0.0;
+        return null;
     }
 }
