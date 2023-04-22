@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.NumberUtils;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class RecogniserTest {
@@ -33,7 +35,14 @@ class RecogniserTest {
         var numberPart = name.substring(7, 12);
         var number = NumberUtils.parseNumber(numberPart, Double.class);
 
-        var image = new BufferedImage(100, 10, TYPE_INT_RGB);
+        BufferedImage image;
+        try {
+            image = ImageIO.read(file);
+        } catch (IOException ignore) {
+            image = null;
+        }
+
+        assertNotNull(image);
 
         var result = recogniser.recognize(image);
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import termotomsk.manager.ocr.Recogniser;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -19,7 +19,7 @@ public class DownloadIaoImage {
         return "https://lop.iao.ru/graph/tor_now.PNG";
     }
 
-    public Image downloadImage() {
+    public BufferedImage downloadImage() {
         try(var in = new URL(getUrl()).openStream()){
             var image = ImageIO.read(in);
             return image;
