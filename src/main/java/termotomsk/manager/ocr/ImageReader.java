@@ -17,12 +17,20 @@ public class ImageReader {
     }
 
     private static void loadChar(File file, List<CharImage> chars) {
-        var name = getNameWithoutExtension(file.getName());
+        var name = improveChar(getNameWithoutExtension(file.getName()));
         try {
             var img = ImageIO.read(file);
             chars.add(CharImage.builder().name(name).image(img).build());
         } catch (IOException ignore) {
         }
+    }
+
+    public static String improveChar(String name) {
+        return switch (name) {
+            case "comma" -> ".";
+            case "minus" -> "-";
+            default -> name;
+        };
     }
 
     public static String getNameWithoutExtension(String fileName) {
