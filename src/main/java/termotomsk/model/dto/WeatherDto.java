@@ -10,6 +10,8 @@ public class WeatherDto {
     private DateTimeDto updated = new DateTimeDto();
     private ServerValueDto serverTermo = new ServerValueDto();
     private ServerValueDto serverIao = new ServerValueDto();
+//    private ServerValueDto serverYandex = new ServerValueDto();
     private ArrayList<Integer> oldValues;
     private ArrayList<Integer> oldValuesIao;
+//    private ArrayList<Integer> oldValuesYandex;
 }

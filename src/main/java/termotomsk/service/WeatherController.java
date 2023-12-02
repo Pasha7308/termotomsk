@@ -35,6 +35,7 @@ public class WeatherController {
         var dto = weatherTranslator.businessToData(weatherContainer.getWeather());
         dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
         dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
+//        dto.setOldValuesYandex(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Yandex));
         return dto;
     }
 

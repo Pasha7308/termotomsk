@@ -18,6 +18,7 @@ public class WeatherTranslator {
         dto.getUpdated().setLocalDateTime(weather.getUpdated());
         dto.setServerTermo(serverValueTranslator.businessToData(weather.getServerTermo()));
         dto.setServerIao(serverValueTranslator.businessToData(weather.getServerIao()));
+//        dto.setServerYandex(serverValueTranslator.businessToData(weather.getServerYandex()));
         return dto;
     }
 
@@ -27,6 +28,7 @@ public class WeatherTranslator {
             switch (serverType) {
                 case Termo -> oldValues.add(itr.getServerTermo().getTemp());
                 case Iao -> oldValues.add(itr.getServerIao().getTemp());
+                case Yandex -> oldValues.add(itr.getServerYandex().getTemp());
             }
         }
         return oldValues;
