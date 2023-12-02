@@ -1,24 +1,24 @@
 package termotomsk.manager.ocr;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Getter
+@Slf4j
 @Service
 public class Recogniser {
-    private final List<CharImage> chars = new ArrayList<>();
+    private final List<CharImage> chars;
 
     public Recogniser() {
-        ImageReader.loadChars(chars);
-    }
-
-    public List<CharImage> getChars() {
-        return chars;
+        chars = ImageReader.loadChars();
+        log.info("Recognition templates loaded: {}", chars.size());
     }
 
     public Double recognize(BufferedImage image) {

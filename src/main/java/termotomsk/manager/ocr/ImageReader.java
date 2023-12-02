@@ -1,28 +1,32 @@
 package termotomsk.manager.ocr;
 
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class ImageReader {
-    public static void loadChars(List<CharImage> chars) {
-        File folder = new File(System.getProperty("user.dir") + "/src/main/resources/numbers");
-        File[] files = folder.listFiles();
-
-        if (files != null) {
-            Arrays.stream(files).forEach(it -> loadChar(it, chars));
-        }
+    public static List<CharImage> loadChars() {
+        var filenames = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "comma", "minus");
+        return filenames.stream()
+                .map(ImageReader::loadChar)
+                .toList();
     }
 
-    private static void loadChar(File file, List<CharImage> chars) {
-        var name = improveChar(getNameWithoutExtension(file.getName()));
+    private static CharImage loadChar(String name) {
         try {
-            var img = ImageIO.read(file);
-            chars.add(CharImage.builder().name(name).image(img).build());
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            var resource = classloader.getResourceAsStream("numbers/" + name + ".png");
+            if (resource != null) {
+                var img = ImageIO.read(resource);
+                return CharImage.builder()
+                        .name(improveChar(name))
+                        .image(img)
+                        .build();
+            }
         } catch (IOException ignore) {
         }
+        return null;
     }
 
     public static String improveChar(String name) {
@@ -32,10 +36,4 @@ public class ImageReader {
             default -> name;
         };
     }
-
-    public static String getNameWithoutExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        return (dotIndex == -1) ? fileName : fileName.substring(0, dotIndex);
-    }
-
 }
