@@ -10,7 +10,9 @@ import termotomsk.manager.WeatherContainer;
 import termotomsk.manager.downloader.DownloadIaoImage;
 import termotomsk.model.ServerType;
 import termotomsk.model.WeatherTranslator;
+import termotomsk.model.WeatherTranslatorV2;
 import termotomsk.model.dto.WeatherDto;
+import termotomsk.model.dto.WeatherDtoV2;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class WeatherController {
     private final WeatherContainer weatherContainer;
     private final WeatherTranslator weatherTranslator;
+    private final WeatherTranslatorV2 weatherTranslatorV2;
     private final DownloadIaoImage downloadIaoImage;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
@@ -40,6 +43,20 @@ public class WeatherController {
         dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
         dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
 //        dto.setOldValuesYandex(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Yandex));
+        return dto;
+    }
+
+    @RequestMapping(path = "/weather_v2", method = RequestMethod.GET)
+    public WeatherDtoV2 weatherV2(
+            @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh) {
+        log.info("/weather_v2");
+        if (weatherContainer.getWeather() == null) {
+            return new WeatherDtoV2();
+        }
+        var dto = weatherTranslatorV2.businessToData(weatherContainer.getWeather());
+        dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
+        dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
+        dto.setOldValuesYandex(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Yandex));
         return dto;
     }
 

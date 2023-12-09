@@ -14,12 +14,15 @@ public class WeatherTranslator {
     private final ServerValueTranslator serverValueTranslator;
 
     public WeatherDto businessToData(Weather weather) {
-        WeatherDto dto = new WeatherDto();
+        var dto = new WeatherDto();
+        businessToData(weather, dto);
+        return dto;
+    }
+
+    public void businessToData(Weather weather, WeatherDto dto) {
         dto.getUpdated().setLocalDateTime(weather.getUpdated());
         dto.setServerTermo(serverValueTranslator.businessToData(weather.getServerTermo()));
         dto.setServerIao(serverValueTranslator.businessToData(weather.getServerIao()));
-//        dto.setServerYandex(serverValueTranslator.businessToData(weather.getServerYandex()));
-        return dto;
     }
 
     public ArrayList<Integer> oldValuesToData(Queue<Weather> weatherList, ServerType serverType) {
