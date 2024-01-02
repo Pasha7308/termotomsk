@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import termotomsk.manager.WeatherContainer;
 import termotomsk.manager.downloader.DownloadIaoImage;
 import termotomsk.model.ServerType;
+import termotomsk.model.WeatherOrderCreator;
 import termotomsk.model.WeatherTranslator;
 import termotomsk.model.WeatherTranslatorV2;
 import termotomsk.model.dto.WeatherDto;
@@ -36,13 +37,13 @@ public class WeatherController {
     public WeatherDto weather(
             @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh) {
         log.info("/weather");
-        if (weatherContainer.getWeather() == null) {
+        var weather = weatherContainer.getWeather();
+        if (weather == null) {
             return new WeatherDto();
         }
-        var dto = weatherTranslator.businessToData(weatherContainer.getWeather());
+        var dto = weatherTranslator.businessToData(weather);
         dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
         dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
-//        dto.setOldValuesYandex(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Yandex));
         return dto;
     }
 
@@ -50,13 +51,15 @@ public class WeatherController {
     public WeatherDtoV2 weatherV2(
             @RequestParam(value="forceRefresh", defaultValue="false") boolean forceRefresh) {
         log.info("/weather_v2");
-        if (weatherContainer.getWeather() == null) {
+        var weather = weatherContainer.getWeather();
+        if (weather == null) {
             return new WeatherDtoV2();
         }
-        var dto = weatherTranslatorV2.businessToData(weatherContainer.getWeather());
+        var dto = weatherTranslatorV2.businessToData(weather);
         dto.setOldValues(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Termo));
         dto.setOldValuesIao(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Iao));
         dto.setOldValuesYandex(weatherTranslator.oldValuesToData(weatherContainer.getWeatherList(), ServerType.Yandex));
+        dto.setPreferredOrder(WeatherOrderCreator.getOrder(weather));
         return dto;
     }
 

@@ -27,6 +27,7 @@ public class SchedulerIao {
         var tempIao = downloadIaoImage.getIao();
         weather.getServerIao().setTemp((int)Math.round(tempIao * 10.0));
         weather.getServerIao().setUpdated(OffsetDateTime.now());
+        weather.getServerIao().setActual(tempIao != 0.0);
         if (weather.getServerTermo().isActual() || weather.getServerIao().isActual()) {
             Weather weatherToSave = new Weather();
             weatherToSave.assign(weather);

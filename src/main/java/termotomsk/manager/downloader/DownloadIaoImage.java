@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,19 +20,15 @@ public class DownloadIaoImage {
         return "https://lop.iao.ru/graph/tor_now.PNG";
     }
 
-    public BufferedImage downloadImage() {
+    public Double getIao() {
+        return Optional.ofNullable(downloadImage()).map(recogniser::recognize).orElse(0.0);
+    }
+
+    private BufferedImage downloadImage() {
         try(var in = new URL(getUrl()).openStream()){
-            var image = ImageIO.read(in);
-            return image;
+            return ImageIO.read(in);
         } catch (IOException ignore) {
         }
         return null;
-    }
-
-    public Double getIao() {
-        var image = downloadImage();
-
-        var result = recogniser.recognize(image);
-        return result;
     }
 }
