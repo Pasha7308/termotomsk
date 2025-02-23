@@ -15,13 +15,20 @@ import java.util.TreeMap;
 @Service
 public class Recogniser {
     private final List<CharImage> chars;
+    private final List<CharImage> charsB;
 
     public Recogniser() {
         chars = ImageReader.loadChars();
-        log.info("Recognition templates loaded: {}", chars.size());
+        charsB = ImageReader.loadCharsB();
+        log.info("Recognition templates loaded: {}", chars.size() + charsB.size());
     }
 
     public Double recognize(BufferedImage image) {
+        var small = recognizeSmall(image);
+        return small != null ? small : recognizeBig(image);
+    }
+
+    public Double recognizeSmall(BufferedImage image) {
         Map<Integer, String> charPositions = new TreeMap<>();
         var subImage = image.getSubimage(120, 3, 50, 12);
         chars.forEach(it -> findChar(it, subImage, charPositions));
@@ -29,7 +36,20 @@ public class Recogniser {
         for (Map.Entry<Integer, String> entry : charPositions.entrySet()) {
             ret.append(entry.getValue());
         }
-        return NumberUtils.parseNumber(ret.toString(), Double.class);
+        var str = ret.toString();
+        return str.isEmpty() ? null : NumberUtils.parseNumber(str, Double.class);
+    }
+
+    public Double recognizeBig(BufferedImage image) {
+        Map<Integer, String> charPositions = new TreeMap<>();
+        var subImage = image.getSubimage(362, 6, 88, 21);
+        charsB.forEach(it -> findChar(it, subImage, charPositions));
+        StringBuilder ret = new StringBuilder();
+        for (Map.Entry<Integer, String> entry : charPositions.entrySet()) {
+            ret.append(entry.getValue());
+        }
+        var str = ret.toString();
+        return str.isEmpty() ? null : NumberUtils.parseNumber(str, Double.class);
     }
 
     private void findChar(CharImage charImage, BufferedImage image, Map<Integer, String> charPositions) {
