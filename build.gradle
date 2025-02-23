@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.pasha'
-version = '24.01.02.01'
+version = '25.02.23.01'
 description = 'termo-tomsk-server'
 sourceCompatibility = '17'
 wrapper {
